@@ -1,0 +1,56 @@
+
+
+
+
+/**
+ * Accordion
+ */
+.toggle-trigger {
+	position: relative;
+	padding: 10px 20px;
+	background: #ccc;
+	cursor: pointer;
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		right: 20px;
+		bottom: 0;
+		width: 20px;
+		height: 2px;
+		margin: auto;
+		background: #000;
+	}
+	&::after {
+		transform: rotate(90deg);
+		transition: transform 0.3s ease;
+	}
+	&.is-active {
+		&::after {
+			transform: rotate(0);
+		}
+	}
+}
+.toggle-content {
+	height: 0; // トグルに必要
+	overflow: hidden; // トグルに必要
+	border: 1px solid #ccc;
+	transition: height 0.4s; // トグルに必要
+}
+
+
+
+/**
+ * レイアウトのためのスタイル
+ */
+section {
+	max-width: 500px;
+	& + & {
+		margin-top: 50px;
+	}
+}
+
+dd {
+	margin: 0;
+}

@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/**
+ * Accordion
+ */
+.toggle-trigger {
+  position: relative;
+  padding: 10px 20px;
+  background: #ccc;
+  cursor: pointer;
+}
+.toggle-trigger::before, .toggle-trigger::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0;
+  width: 20px;
+  height: 2px;
+  margin: auto;
+  background: #000;
+}
+.toggle-trigger::after {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+.toggle-trigger.is-active::after {
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+}
+
+.toggle-content {
+  height: 0;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  -webkit-transition: height 0.4s;
+  transition: height 0.4s;
+}
+
+/**
+ * レイアウトのためのスタイル
+ */
+section {
+  max-width: 500px;
+}
+section + section {
+  margin-top: 50px;
+}
+
+dd {
+  margin: 0;
+}
