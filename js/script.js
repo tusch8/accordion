@@ -8,19 +8,22 @@ const accordion = () => {
 
 	const toggle = e => {
 
+		// アロー関数だとthisで取得できないため、e.targetで取得
+		const _this = e.target;
+
 		// クリックしたもの以外は閉じるとき
 		toggleEls.forEach(toggleEl => {
-			if (toggleEl === this) {
+			if (toggleEl === _this) {
 				return;
 			}
 			toggleEl.classList.remove('is-active');
 			toggleEl.nextElementSibling.style.height = '0px';
 		});
 
-		// アロー関数だとthisで取得できないため、e.targetで取得
-		const _this = e.target;
+		// 開閉
 		_this.classList.toggle('is-active');
 
+		// 自身が開いていたら閉じる
 		if (_this.classList.contains('is-active')) {
 			_this.nextElementSibling.style.height = _this.nextElementSibling.scrollHeight + 'px';
 		} else {
