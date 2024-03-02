@@ -2,4 +2,4 @@
 ただのアコーディオン  
 
 ## デモ
-https://inaro8.github.io/accordion/
+https://tusch8.github.io/accordion/
