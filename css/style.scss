@@ -6,9 +6,13 @@
  * Accordion
  */
 .toggle-trigger {
+	display: block;
 	position: relative;
+	width: 100%;
 	padding: 10px 20px;
+	border: none;
 	background: #ccc;
+	text-align: left;
 	cursor: pointer;
 	&::before,
 	&::after {
