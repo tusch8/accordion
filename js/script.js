@@ -1,39 +1,58 @@
+// コーディング規約などによってdata属性が使えない場合があるため、セレクタは定数として保持しておく
+const DETAILS_SEL = "[data-details]";
 
-const accordion = () => {
-	const toggleEls = document.querySelectorAll('.js-toggle');
+const details = document.querySelectorAll(`${DETAILS_SEL}`);
 
-	if (!toggleEls.length) {
-		return;
-	}
+details.forEach((detail) => {
+	detail.querySelector("summary").addEventListener("click", (e) => {
+		// デフォルトの挙動をオフ
+		e.preventDefault();
 
-	const toggle = e => {
+		// コンテンツ部分
+		const content = e.target.nextElementSibling;
 
-		// アロー関数だとthisで取得できないため、e.targetで取得
-		const _this = e.target;
+		// コンテンツ部分の高さを取得(scrollHeightなどではズレてしまった？のでblock-sizeを取得)
+		const contentHeight = window.getComputedStyle(content).blockSize;
 
-		// クリックしたもの以外は閉じるとき
-		toggleEls.forEach(toggleEl => {
-			if (toggleEl === _this) {
-				return;
-			}
-			toggleEl.classList.remove('is-active');
-			toggleEl.nextElementSibling.style.height = '0px';
-		});
+		// カスタムプロパティのdurationの値を取得
+		const durationVal =
+			getComputedStyle(content).getPropertyValue("--duration");
+		const duration = durationVal
+			? parseFloat(durationVal.replace("s", "")) * 1000
+			: 150;
 
-		// 開閉
-		_this.classList.toggle('is-active');
+		// summaryをクリックしたとき、閉じていたら開く
+		if (detail.closest(DETAILS_SEL).getAttribute("open") === null) {
+			// デフォルトの挙動はオフにしていたので、手動でopen属性つける
+			detail.setAttribute("open", "true");
 
-		// 自身が開いていたら閉じる
-		if (_this.classList.contains('is-active')) {
-			_this.nextElementSibling.style.height = _this.nextElementSibling.scrollHeight + 'px';
-		} else {
-			_this.nextElementSibling.style.height = '0px';
+			// アニメーションさせながら開く
+			content.animate(
+				{
+					height: ["0px", contentHeight],
+				},
+				{
+					duration: duration,
+				}
+			);
 		}
-	}
 
-	toggleEls.forEach(toggleEl => {
-		toggleEl.addEventListener('click', toggle);
+		// 開いていたら閉じる
+		else {
+			// アニメーションさせながら閉じる
+			const closeAnimate = content.animate(
+				{
+					height: [contentHeight, "0px"],
+				},
+				{
+					duration: duration,
+				}
+			);
+
+			closeAnimate.onfinish = () => {
+				// アニメーション終了後にopen属性外す
+				detail.removeAttribute("open");
+			};
+		}
 	});
-}
-
-accordion();
+});

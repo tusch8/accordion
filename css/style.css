@@ -1,59 +1,50 @@
-@charset "UTF-8";
-/**
- * Accordion
- */
-.toggle-trigger {
-  display: block;
-  position: relative;
-  width: 100%;
-  padding: 10px 20px;
-  border: none;
-  background: #ccc;
-  text-align: left;
+:where(summary) {
+  list-style: none;
   cursor: pointer;
 }
-.toggle-trigger::before, .toggle-trigger::after {
+
+:where(summary::-webkit-details-marker) {
+  display: none;
+}
+
+.details {
+  --padding: 1em 1.5em;
+  --duration: 0.15s;
+  overflow: clip;
+  border: 1px solid;
+  border-radius: 10px;
+}
+.details + .details {
+  margin-top: 30px;
+}
+
+.details[open] .summary::after {
+  scale: 1 -1;
+}
+.details[open] .details-content {
+  height: auto;
+}
+
+.summary {
+  --icon-height: 0.66em;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1em;
+  padding: var(--padding);
+  background: whitesmoke;
+}
+.summary::after {
   content: "";
-  position: absolute;
-  top: 0;
-  right: 20px;
-  bottom: 0;
-  width: 20px;
-  height: 2px;
-  margin: auto;
-  background: #000;
-}
-.toggle-trigger::after {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-  -webkit-transition: -webkit-transform 0.3s ease;
-  transition: -webkit-transform 0.3s ease;
-  transition: transform 0.3s ease;
-  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
-}
-.toggle-trigger.is-active::after {
-  -webkit-transform: rotate(0);
-          transform: rotate(0);
+  -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
+          clip-path: polygon(50% 100%, 0 0, 100% 0);
+  width: 1em;
+  height: var(--icon-height);
+  background: black;
+  -webkit-transition: scale var(--duration);
+  transition: scale var(--duration);
+  translate: 0 calc((1lh - var(--icon-height)) * 0.5);
 }
 
-.toggle-content {
-  height: 0;
-  overflow: hidden;
-  border: 1px solid #ccc;
-  -webkit-transition: height 0.4s;
-  transition: height 0.4s;
-}
-
-/**
- * レイアウトのためのスタイル
- */
-section {
-  max-width: 500px;
-}
-section + section {
-  margin-top: 50px;
-}
-
-dd {
-  margin: 0;
+.details-content-inner {
+  padding: var(--padding);
 }

@@ -2,49 +2,40 @@
 <html lang="ja">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>アコーディオン</title>
-	<link rel="stylesheet" href="./css/style.css" />
+	<link rel="stylesheet" href="./css/style.css">
 	<script src="./js/script.js" defer></script>
 </head>
 
 <body>
 	<h1>アコーディオン</h1>
-	<p>ただのアコーディオン</p>
-	<section>
-		<h2>FAQ</h2>
-		<div>
-			<button class="js-toggle toggle-trigger">質問</button>
-			<div class="toggle-content">
-				<p>回答<br />回答</p>
-			</div>
+	<p>details,summaryを使ったアコーディオン</p>
+	<details class="details" data-details>
+		<summary class="summary">Q.質問1</summary>
+		<div class="details-content">
+			<div class="details-content-inner">A.回答1</div>
 		</div>
-		<div>
-			<button class="js-toggle toggle-trigger">質問</button>
-			<div class="toggle-content">
-				<p>回答<br />回答<a href="">リンク</a></p>
-			</div>
+	</details>
+	<details class="details" data-details>
+		<summary class="summary">Q.質問2</summary>
+		<div class="details-content">
+			<div class="details-content-inner">A.回答2</div>
 		</div>
-		<div>
-			<button class="js-toggle toggle-trigger">質問</button>
-			<div class="toggle-content">
-				<p>回答<br />回答</p>
-			</div>
+	</details>
+	<details class="details" data-details>
+		<summary class="summary">Q.質問3</summary>
+		<div class="details-content">
+			<div class="details-content-inner">A.回答3<br>テキストテキストテキスト<br>テキストテキストテキスト<br>テキストテキストテキスト</div>
 		</div>
-		<div>
-			<button class="js-toggle toggle-trigger">質問</button>
-			<div class="toggle-content">
-				<p>回答<br />回答</p>
-			</div>
+	</details>
+	<details class="details" data-details open>
+		<summary class="summary">Q.質問4初期状態で開く</summary>
+		<div class="details-content">
+			<div class="details-content-inner">A.回答4<br>summary要素に初めからopen属性をつけておけば良い</div>
 		</div>
-		<div>
-			<button class="js-toggle toggle-trigger">質問</button>
-			<div class="toggle-content">
-				<p>回答<br />回答</p>
-			</div>
-		</div>
-	</section>
+	</details>
 </body>
 
 </html>

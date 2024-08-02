@@ -1,60 +1,58 @@
-
-
-
-
-/**
- * Accordion
- */
-.toggle-trigger {
-	display: block;
-	position: relative;
-	width: 100%;
-	padding: 10px 20px;
-	border: none;
-	background: #ccc;
-	text-align: left;
+// summaryのアイコンスタイルをリセット
+:where(summary) {
+	list-style: none;
 	cursor: pointer;
-	&::before,
-	&::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		right: 20px;
-		bottom: 0;
-		width: 20px;
-		height: 2px;
-		margin: auto;
-		background: #000;
+}
+
+:where(summary::-webkit-details-marker) {
+	display: none;
+}
+
+// details部分のスタイル
+.details {
+	--padding: 1em 1.5em;
+	--duration: 0.15s;
+	overflow: clip;
+	border: 1px solid;
+	border-radius: 10px;
+	& + .details {
+		margin-top: 30px;
 	}
-	&::after {
-		transform: rotate(90deg);
-		transition: transform 0.3s ease;
-	}
-	&.is-active {
+}
+
+.details[open] {
+	.summary {
 		&::after {
-			transform: rotate(0);
+			scale: 1 -1;
 		}
 	}
-}
-.toggle-content {
-	height: 0; // トグルに必要
-	overflow: hidden; // トグルに必要
-	border: 1px solid #ccc;
-	transition: height 0.4s; // トグルに必要
-}
-
-
-
-/**
- * レイアウトのためのスタイル
- */
-section {
-	max-width: 500px;
-	& + & {
-		margin-top: 50px;
+	.details-content {
+		height: auto;
 	}
 }
 
-dd {
-	margin: 0;
+.summary {
+	--icon-height: 0.66em;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 1em;
+	padding: var(--padding);
+	background: whitesmoke;
+	&::after {
+		content: "";
+		clip-path: polygon(50% 100%, 0 0, 100% 0);
+		width: 1em;
+		height: var(--icon-height);
+		background: black;
+		transition: scale var(--duration);
+		translate: 0 calc((1lh - var(--icon-height)) * 0.5);
+	}
+}
+
+// コンテンツ部分(この要素にpaddingはつけない)
+.details-content {
+}
+
+.details-content-inner {
+	padding: var(--padding);
 }
